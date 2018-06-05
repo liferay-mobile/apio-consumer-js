@@ -1,0 +1,23 @@
+{
+  "name": "apio-consumer",
+  "version": "0.0.1",
+  "description": "Apio Consumer for JS is part of the Apio project, which aims to promote the creation of APIs designed to evolve over time. The Apio Consumer is a client-side library to facilitate the creation of consumers of any hypermedia API.",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "Victor Galán Grande",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "rollup": "^0.59.4",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-node-resolve": "^3.3.0"
+  }
+}
