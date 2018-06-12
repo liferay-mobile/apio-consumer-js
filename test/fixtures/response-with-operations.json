@@ -1,0 +1,44 @@
+{
+	"image": "https://apiosample.wedeploy.io/images/9",
+	"birthDate": "1993-08-08T05:38Z",
+	"email": "joel.sanford@example.com",
+	"familyName": "Hermiston",
+	"givenName": "Loy",
+	"name": "Loy Hermiston",
+	"jobTitle": [
+		"Dynamic Tactics Orchestrator"
+	],
+	"@type": [
+		"Person"
+	],
+	"@id": "https://apiosample.wedeploy.io/p/people/9",
+	"operation": [
+		{
+			"method": "DELETE",
+			"@id": "_:people/delete",
+			"@type": "Operation"
+		},
+		{
+			"expects": "https://apiosample.wedeploy.io/f/u/people",
+			"method": "PUT",
+			"@id": "_:people/update",
+			"@type": "Operation"
+		}
+	],
+	"address": {
+		"addressCountry": "CI",
+		"addressLocality": "Mitchellville",
+		"addressRegion": "Kentucky",
+		"postalCode": "47685-5726",
+		"streetAddress": "1228 Ada Shoal",
+		"@type": [
+			"PostalAddress"
+		]
+	},
+	"@context": [
+		{
+			"@vocab": "http://schema.org/"
+		},
+		"https://www.w3.org/ns/hydra/core#"
+	]
+}

@@ -1,0 +1,51 @@
+{
+	"totalItems": 42,
+	"numberOfItems": 30,
+	"view": {
+		"@id": "https://apiosample.wedeploy.io/p/blog-postings?page=1&per_page=30",
+		"first": "https://apiosample.wedeploy.io/p/blog-postings?page=1&per_page=30",
+		"last": "https://apiosample.wedeploy.io/p/blog-postings?page=2&per_page=30",
+		"next": "https://apiosample.wedeploy.io/p/blog-postings?page=2&per_page=30",
+		"@type": [
+			"PartialCollectionView"
+		]
+	},
+	"@id": "https://apiosample.wedeploy.io/p/blog-postings",
+	"member": [
+		{
+			"dateCreated": "2018-06-01T10:48Z",
+			"dateModified": "2018-06-01T10:48Z",
+			"alternativeHeadline": "Deserunt dolorum iusto.",
+			"articleBody": "Natus in dolore est quaerat qui. Et nesciunt ut nihil sit placeat. Beatae alias velit deleniti accusantium.",
+			"fileFormat": "text/html",
+			"headline": "Death Be Not Proud",
+			"@type": [
+				"BlogPosting"
+			],
+			"@id": "https://apiosample.wedeploy.io/p/blog-postings/0",
+			"creator": "https://apiosample.wedeploy.io/p/people/9",
+			"@context": [
+				{
+					"creator": {
+						"@type": "@id"
+					}
+				},
+				{
+					"comment": {
+						"@type": "@id"
+					}
+				}
+			],
+			"comment": "https://apiosample.wedeploy.io/p/blog-postings/0/comments"
+		}
+	],
+	"@context": [
+		{
+			"@vocab": "http://schema.org/"
+		},
+		"https://www.w3.org/ns/hydra/core#"
+	],
+	"@type": [
+		"Collection"
+	]
+}
