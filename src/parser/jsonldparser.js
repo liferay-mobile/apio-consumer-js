@@ -2,7 +2,7 @@ import Thing from '../model/thing';
 import Relation from '../model/relation';
 import Operation from '../model/operation';
 
-import {isObject, filterProperties} from '../utils';
+import {isObject, isObjectArray, filterProperties} from '../utils';
 
 /**
  * Parser for extracting all the things from a json ld document
@@ -71,11 +71,7 @@ export default class JsonLDParser {
 
 				Object.assign(things, attributesAndThings.embeddedThings);
 			}
-		} else if (
-			Array.isArray(value) &&
-			value.length > 0 &&
-			isObject(value[0])
-		) {
+		} else if (isObjectArray(value)) {
 			if (this.isEmbbededThingArray(value)) {
 				const list = value.map(x => this.parseThing(x, things));
 				let relations = [];
