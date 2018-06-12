@@ -7,6 +7,7 @@ export default class ApioConsumer {
 	constructor(authorizationHeaders) {
 		this.client = new HttpClient();
 		this.parser = new JsonLDParser();
+		this.thingsCache = new Map();
 		this.authorizationHeaders = authorizationHeaders;
 	}
 
@@ -18,7 +19,9 @@ export default class ApioConsumer {
 	async fetchResource(id) {
 		const json = await this.client.get(id, this.authorizationHeaders);
 
-		const {thing, _} = this.parser.parseThing(json);
+		const {thing, embbededThings} = this.parser.parseThing(json);
+
+		this.updateCache(thing, embbededThings);
 
 		return thing;
 	}
@@ -39,5 +42,18 @@ export default class ApioConsumer {
 		const {thing, _} = this.parser.parseThing(json);
 
 		return formConverter(thing);
+	}
+
+	/**
+	 * Update the local cache of things
+	 * @param {Thing} thing
+	 * @param {Object} embbededThings
+	 */
+	updateCache(thing, embbededThings) {
+		this.thingsCache.set(thing.id, thing);
+
+		for (const key of Object.keys(embbededThings)) {
+			this.thingsCache.set(key, embbededThings[key]);
+		}
 	}
 }
