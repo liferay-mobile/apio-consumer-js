@@ -1,9 +1,15 @@
 import HttpClient from '../http/client';
 import JsonLDParser from '../parser/jsonldparser';
 import {formConverter} from '../converters';
-import Operation from '../model/operation';
 
+/**
+ * Apio consumer
+ */
 export default class ApioConsumer {
+	/**
+	 * Creates a new ApioConsumer
+	 * @param {Object} authorizationHeaders
+	 */
 	constructor(authorizationHeaders) {
 		this.client = new HttpClient();
 		this.parser = new JsonLDParser();
@@ -14,7 +20,7 @@ export default class ApioConsumer {
 	/**
 	 * Fetch a resource using its id
 	 * @param {string} id
-	 * @returns {Thing}
+	 * @return {Thing}
 	 */
 	async fetchResource(id) {
 		const json = await this.client.get(id, this.authorizationHeaders);
@@ -28,8 +34,8 @@ export default class ApioConsumer {
 
 	/**
 	 * Get the form associated to the operation
-	 * @param {Thing} thing
 	 * @param {Operation} operation
+	 * @return {Form}
 	 */
 	async getOperationForm(operation) {
 		if (operation.expects == null) {
@@ -39,7 +45,7 @@ export default class ApioConsumer {
 		}
 
 		const json = await this.client.get(operation.expects);
-		const {thing, _} = this.parser.parseThing(json);
+		const {thing} = this.parser.parseThing(json);
 
 		return formConverter(thing);
 	}
