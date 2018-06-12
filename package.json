@@ -6,12 +6,14 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint src/**/*.js",
-    "format": "prettier-eslint 'src/**/*.js' --write"
+    "format": "prettier-eslint 'src/**/*.js' --write",
     "test": "jest"
   },
   "author": "Victor Galán Grande",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "cross-fetch": "^2.2.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
