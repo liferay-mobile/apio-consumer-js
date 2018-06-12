@@ -7,7 +7,8 @@
     "build": "rollup -c",
     "lint": "eslint src/**/*.js",
     "format": "prettier-eslint 'src/**/*.js' --write",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "author": "Victor Galán Grande",
   "license": "ISC",
