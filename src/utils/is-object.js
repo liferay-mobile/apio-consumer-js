@@ -1,5 +1,3 @@
-const isObject = x => {
-	return !!x && x.constructor === Object;
-};
+const isObject = x => !!x && x.constructor === Object;
 
 export {isObject};
