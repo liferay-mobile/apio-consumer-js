@@ -17,7 +17,7 @@ export default class HttpClient {
 		}
 
 		const response = await fetch(url, {
-			headers: headers,
+			headers,
 		});
 
 		if (response.ok) {
