@@ -4,30 +4,30 @@ import babel from 'rollup-plugin-babel';
 
 export default [
 	{
-		input: 'src/main.js',
+		input: 'src/index.js',
 		output: {
 			name: 'ApioConsumer',
 			file: 'build/apio-consumer-browser.js',
-			format: 'iife'
+			format: 'iife',
 		},
 		plugins: [
 			nodeResolve({
-				browser: true
+				browser: true,
 			}),
 			commonjs(),
 			babel({
 				plugins: ['transform-runtime'],
 				runtimeHelpers: true,
-				exclude: 'node_modules/**'
-			})
-		]
+				exclude: 'node_modules/**',
+			}),
+		],
 	},
 	{
-		input: 'src/main.js',
+		input: 'src/index.js',
 		output: {
 			name: 'ApioConsumer',
 			file: 'build/apio-consumer-node.js',
-			format: 'cjs'
+			format: 'cjs',
 		},
 		plugins: [
 			nodeResolve(),
@@ -35,8 +35,8 @@ export default [
 			babel({
 				plugins: ['transform-runtime'],
 				runtimeHelpers: true,
-				exclude: 'node_modules/**'
-			})
-		]
-	}
+				exclude: 'node_modules/**',
+			}),
+		],
+	},
 ];

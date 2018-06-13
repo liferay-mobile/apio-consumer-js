@@ -1,0 +1,89 @@
+{
+	"@id": "https://apiosample.wedeploy.io/f/u/people",
+	"title": "The person form",
+	"description": "This form can be used to create or update a person",
+	"supportedProperty": [
+		{
+			"@type": "SupportedProperty",
+			"property": "jobTitle",
+			"readable": false,
+			"required": false,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "birthDate",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "addressCountry",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "image",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "streetAddress",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "givenName",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "familyName",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "postalCode",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "addressLocality",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "addressRegion",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		},
+		{
+			"@type": "SupportedProperty",
+			"property": "email",
+			"readable": false,
+			"required": true,
+			"writeable": true
+		}
+	],
+	"@type": "Class",
+	"@context": [
+		{"@vocab": "http://schema.org/"},
+		"https://www.w3.org/ns/hydra/core#"
+	]
+}
