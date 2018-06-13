@@ -8,12 +8,12 @@ describe('Api client', () => {
 
 		expect(queryString).toBe('?key=value');
 	});
-	it('getQueryString should generate a correct query string when passing several parameter', () => {
+	it('getQueryString should generate a correct query string when passing several parameters', () => {
 		const client = new HttpClient();
 
 		const queryString = client.getQueryString({
 			key1: 'value1',
-			key2: 'value2'
+			key2: 'value2',
 		});
 
 		expect(queryString).toBe('?key1=value1&key2=value2');
