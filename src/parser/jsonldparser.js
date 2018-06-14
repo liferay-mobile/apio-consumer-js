@@ -23,7 +23,6 @@ export default class JsonLDParser {
 		const {attributes, things} = this.parseAttributes(json, context);
 
 		const thing = new Thing(id, types, attributes, operations);
-
 		return {thing, embeddedThings: things};
 	}
 
@@ -55,48 +54,9 @@ export default class JsonLDParser {
 		const {key, value} = attribute;
 
 		if (isObject(value)) {
-			if (this.isEmbbededThing(value)) {
-				const {thing, embeddedThings} = this.parseThing(value);
-				attributes[key] = new Relation(thing.id, thing);
-
-				Object.assign(things, embeddedThings);
-
-				things[thing.id] = thing;
-			} else {
-				const attributesAndThings = this.parseAttributes(
-					value,
-					context
-				);
-				attributes[key] = attributesAndThings.attributes;
-
-				Object.assign(things, attributesAndThings.embeddedThings);
-			}
+			this.parseObject(key, value, context, attributes, things);
 		} else if (isObjectArray(value)) {
-			if (this.isEmbbededThingArray(value)) {
-				const list = value.map(x => this.parseThing(x, things));
-				let relations = [];
-				for (const {thing, embeddedThings} of list) {
-					const relation = new Relation(thing.id, thing);
-					relations.push(relation);
-
-					Object.assign(things, embeddedThings);
-
-					things[thing.id] = thing;
-				}
-
-				attributes[key] = relations;
-			} else {
-				const list = value.map(x => this.parseAttributes(x, context));
-
-				let attributeList = [];
-				for (const attributesAndThings of list) {
-					attributeList.push(attributesAndThings.attributes);
-
-					Object.assign(things, attributesAndThings.embeddedThings);
-				}
-
-				attributes[key] = attributeList;
-			}
+			this.parseObjectArray(key, value, context, attributes, things);
 		} else if (this.isId(key, context)) {
 			const relation = new Relation(value, null);
 
@@ -107,6 +67,68 @@ export default class JsonLDParser {
 		}
 
 		return {attributes, things};
+	}
+
+	/**
+	 * Parses an Object, extracting all the thing within it and
+	 * replacing them with a [Relation] {@link Relation}
+	 * @param {string} key
+	 * @param {Object} value
+	 * @param {Object} context
+	 * @param {Object} attributes
+	 * @param {Object} things
+	 */
+	parseObject(key, value, context, attributes, things) {
+		if (this.isEmbbededThing(value)) {
+			const {thing, embeddedThings} = this.parseThing(value);
+			attributes[key] = new Relation(thing.id, thing);
+
+			Object.assign(things, embeddedThings);
+
+			things[thing.id] = thing;
+		} else {
+			const attributesAndThings = this.parseAttributes(value, context);
+			attributes[key] = attributesAndThings.attributes;
+
+			Object.assign(things, attributesAndThings.embeddedThings);
+		}
+	}
+
+	/**
+	 * Parses a Object Array, extracting all the thing within it and
+	 * replacing them with a [Relation] {@link Relation}
+	 * @param {string} key
+	 * @param {Array<Object>} value
+	 * @param {Object} context
+	 * @param {Object} attributes
+	 * @param {Object} things
+	 */
+	parseObjectArray(key, value, context, attributes, things) {
+		if (this.isEmbbededThingArray(value)) {
+			const list = value.map(x => this.parseThing(x, things));
+			let relations = [];
+			for (const {thing, embeddedThings} of list) {
+				const relation = new Relation(thing.id, thing);
+				relations.push(relation);
+
+				Object.assign(things, embeddedThings);
+
+				things[thing.id] = thing;
+			}
+
+			attributes[key] = relations;
+		} else {
+			const list = value.map(x => this.parseAttributes(x, context));
+
+			let attributeList = [];
+			for (const attributesAndThings of list) {
+				attributeList.push(attributesAndThings.attributes);
+
+				Object.assign(things, attributesAndThings.embeddedThings);
+			}
+
+			attributes[key] = attributeList;
+		}
 	}
 
 	/**
