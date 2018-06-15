@@ -25,9 +25,9 @@ export default class ApioConsumer {
 	async fetchResource(id) {
 		const json = await this.client.get(id, this.authorizationHeaders);
 
-		const {thing, embbededThings} = this.parser.parseThing(json);
+		const {thing, embeddedThings} = this.parser.parseThing(json);
 
-		this.updateCache(thing, embbededThings);
+		this.updateCache(thing, embeddedThings);
 
 		return thing;
 	}
@@ -53,13 +53,13 @@ export default class ApioConsumer {
 	/**
 	 * Update the local cache of things
 	 * @param {Thing} thing
-	 * @param {Object} embbededThings
+	 * @param {Object} embeddedThings
 	 */
-	updateCache(thing, embbededThings) {
+	updateCache(thing, embeddedThings = {}) {
 		this.thingsCache.set(thing.id, thing);
 
-		for (const key of Object.keys(embbededThings)) {
-			this.thingsCache.set(key, embbededThings[key]);
+		for (const key of Object.keys(embeddedThings)) {
+			this.thingsCache.set(key, embeddedThings[key]);
 		}
 	}
 }
