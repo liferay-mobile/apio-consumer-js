@@ -51,6 +51,30 @@ export default class ApioConsumer {
 	}
 
 	/**
+	 * Execute the passed operation
+	 * @param {Operation} operation
+	 * @param {Object} properties
+	 * @param {boolean} includeFile
+	 * @return {Object}
+	 */
+	async performOperation(operation, properties, includeFile = false) {
+		let body;
+
+		if (properties != null) {
+			body = includeFile
+				? this.client.buildFormDataBody(properties)
+				: this.client.buildJsonBody(properties);
+		}
+
+		return this.client.request(
+			operation.method,
+			operation.target,
+			this.authorizationHeaders,
+			body
+		);
+	}
+
+	/**
 	 * Update the local cache of things
 	 * @param {Thing} thing
 	 * @param {Object} embeddedThings
