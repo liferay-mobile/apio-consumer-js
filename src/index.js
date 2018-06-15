@@ -1,1 +1,3 @@
-export * from './consumer/apio-consumer';
+import ApioConsumer from './consumer/apio-consumer';
+
+export default ApioConsumer;
