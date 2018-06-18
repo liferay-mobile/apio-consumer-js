@@ -39,7 +39,7 @@ export default class HttpClient {
 	 * @param {Object} body
 	 * @return {Object}
 	 */
-	async request(method, url, headers, body) {
+	async request(method, url, headers = {}, body) {
 		const contentType =
 			body instanceof FormData
 				? 'multipart/form-data'
