@@ -17,9 +17,7 @@ export default class HttpClient {
 			url += this.getQueryString(parameters);
 		}
 
-		const response = await fetch(url, {
-			headers,
-		});
+		const response = await this.doFetch(url, 'GET', headers);
 
 		if (response.ok) {
 			return response.json();
@@ -44,11 +42,13 @@ export default class HttpClient {
 			body instanceof FormData
 				? 'multipart/form-data'
 				: 'application/json';
-		const response = await fetch(url, {
+
+		const response = await this.doFetch(
+			url,
 			method,
-			headers: Object.assign(headers, {'Content-Type': contentType}),
-			body,
-		});
+			Object.assign(headers, {'Content-Type': contentType}),
+			body
+		);
 
 		if (response.ok) {
 			return response.json();
@@ -58,6 +58,21 @@ export default class HttpClient {
 			error.data = body;
 			throw error;
 		}
+	}
+
+	/**
+	 * Perform the http request
+	 * @param {string} url
+	 * @param {string} method
+	 * @param {object} headers
+	 * @param {object} body
+	 */
+	doFetch(url, method, headers, body) {
+		return fetch(url, {
+			method,
+			headers: headers,
+			body,
+		});
 	}
 
 	/**
