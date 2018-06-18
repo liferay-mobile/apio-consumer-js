@@ -71,7 +71,7 @@ export default class HttpClient {
 	doFetch(url, method, headers, body) {
 		return fetch(url, {
 			method,
-			headers: headers,
+			headers,
 			body,
 		});
 	}
