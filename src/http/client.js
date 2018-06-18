@@ -38,15 +38,15 @@ export default class HttpClient {
 	 * @return {Object}
 	 */
 	async request(method, url, headers = {}, body) {
-		const contentType =
+		const contentTypeHeader =
 			body instanceof FormData
-				? 'multipart/form-data'
-				: 'application/json';
+				? {}
+				: {'Content-Type': 'application/json'};
 
 		const response = await this.doFetch(
 			url,
 			method,
-			Object.assign(headers, {'Content-Type': contentType}),
+			Object.assign(headers, contentTypeHeader),
 			body
 		);
 
