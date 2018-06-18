@@ -11,8 +11,8 @@ export default class JsonLDParser {
 	/**
 	 * Parses a thing from a json-ld document.
 	 * Returns the top level thing, and all the embedded things
-	 * @param {Object} json
-	 * @return {Object}
+	 * @param {object} json
+	 * @return {object}
 	 */
 	parseThing(json) {
 		const id = json['@id'];
@@ -28,9 +28,9 @@ export default class JsonLDParser {
 
 	/**
 	 * Parses the attributes of the thing, that can be other things
-	 * @param {Object} json
-	 * @param {Object} context
-	 * @return {Object}
+	 * @param {object} json
+	 * @param {object} context
+	 * @return {object}
 	 */
 	parseAttributes(json, context) {
 		const filteredJson = filterProperties(json, '@id', '@context', '@type');
@@ -44,10 +44,10 @@ export default class JsonLDParser {
 	/**
 	 * Parses the attribute, extracting all the thing within it and
 	 * replacing them with a [Relation] {@link Relation}
-	 * @param {Object} context
-	 * @param {Object} foldedAttributes
+	 * @param {object} context
+	 * @param {object} foldedAttributes
 	 * @param {Array} attribute
-	 * @return {Object}
+	 * @return {object}
 	 */
 	flatten(context, foldedAttributes, attribute) {
 		let {attributes, things} = foldedAttributes;
@@ -73,10 +73,10 @@ export default class JsonLDParser {
 	 * Parses an Object, extracting all the thing within it and
 	 * replacing them with a [Relation] {@link Relation}
 	 * @param {string} key
-	 * @param {Object} value
-	 * @param {Object} context
-	 * @param {Object} attributes
-	 * @param {Object} things
+	 * @param {object} value
+	 * @param {object} context
+	 * @param {object} attributes
+	 * @param {object} things
 	 */
 	parseObject(key, value, context, attributes, things) {
 		if (this.isEmbbededThing(value)) {
@@ -99,9 +99,9 @@ export default class JsonLDParser {
 	 * replacing them with a [Relation] {@link Relation}
 	 * @param {string} key
 	 * @param {Array<Object>} value
-	 * @param {Object} context
-	 * @param {Object} attributes
-	 * @param {Object} things
+	 * @param {object} context
+	 * @param {object} attributes
+	 * @param {object} things
 	 */
 	parseObjectArray(key, value, context, attributes, things) {
 		if (this.isEmbbededThingArray(value)) {
@@ -133,7 +133,7 @@ export default class JsonLDParser {
 
 	/**
 	 * Parses operations from a json array
-	 * @param {Object} json
+	 * @param {object} json
 	 * @return {Array<Operation>}
 	 */
 	parseOperations(json) {
@@ -157,7 +157,7 @@ export default class JsonLDParser {
 
 	/**
 	 * Check if the object passed is a embbeded thing
-	 * @param {Object} value
+	 * @param {object} value
 	 * @return {boolean}
 	 */
 	isEmbbededThing(value) {

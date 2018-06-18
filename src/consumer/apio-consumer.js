@@ -8,7 +8,7 @@ import {formConverter} from '../converters';
 export default class ApioConsumer {
 	/**
 	 * Creates a new ApioConsumer
-	 * @param {Object} authorizationHeaders
+	 * @param {object} authorizationHeaders
 	 */
 	constructor(authorizationHeaders) {
 		this.client = new HttpClient();
@@ -53,9 +53,9 @@ export default class ApioConsumer {
 	/**
 	 * Execute the passed operation
 	 * @param {Operation} operation
-	 * @param {Object} properties
+	 * @param {object} properties
 	 * @param {boolean} includeFile
-	 * @return {Object}
+	 * @return {object}
 	 */
 	async performOperation(operation, properties, includeFile = false) {
 		let body;
@@ -77,7 +77,7 @@ export default class ApioConsumer {
 	/**
 	 * Update the local cache of things
 	 * @param {Thing} thing
-	 * @param {Object} embeddedThings
+	 * @param {object} embeddedThings
 	 */
 	updateCache(thing, embeddedThings = {}) {
 		this.thingsCache.set(thing.id, thing);

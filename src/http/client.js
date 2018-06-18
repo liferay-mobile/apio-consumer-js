@@ -8,9 +8,9 @@ export default class HttpClient {
 	/**
 	 * Perform a GET http request
 	 * @param {String} url
-	 * @param {Object} headers
-	 * @param {Object} parameters
-	 * @return {Object}
+	 * @param {object} headers
+	 * @param {object} parameters
+	 * @return {object}
 	 */
 	async get(url, headers, parameters) {
 		if (parameters) {
@@ -33,9 +33,9 @@ export default class HttpClient {
 	 * Perform an http request using the given method
 	 * @param {String} method
 	 * @param {String} url
-	 * @param {Object} headers
-	 * @param {Object} body
-	 * @return {Object}
+	 * @param {object} headers
+	 * @param {object} body
+	 * @return {object}
 	 */
 	async request(method, url, headers = {}, body) {
 		const contentTypeHeader =
@@ -66,6 +66,7 @@ export default class HttpClient {
 	 * @param {string} method
 	 * @param {object} headers
 	 * @param {object} body
+	 * @return {Response}
 	 */
 	doFetch(url, method, headers, body) {
 		return fetch(url, {
@@ -77,7 +78,7 @@ export default class HttpClient {
 
 	/**
 	 * Get the query string from a object
-	 * @param {Object} parameters
+	 * @param {object} parameters
 	 * @return {String}
 	 */
 	getQueryString(parameters) {
