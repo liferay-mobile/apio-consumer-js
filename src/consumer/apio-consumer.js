@@ -8,7 +8,7 @@ import {formConverter} from '../converters';
 export default class ApioConsumer {
 	/**
 	 * Creates a new ApioConsumer
-	 * @param {Object} authorizationHeaders
+	 * @param {object} authorizationHeaders
 	 */
 	constructor(authorizationHeaders) {
 		this.client = new HttpClient();
@@ -25,9 +25,9 @@ export default class ApioConsumer {
 	async fetchResource(id) {
 		const json = await this.client.get(id, this.authorizationHeaders);
 
-		const {thing, embbededThings} = this.parser.parseThing(json);
+		const {thing, embeddedThings} = this.parser.parseThing(json);
 
-		this.updateCache(thing, embbededThings);
+		this.updateCache(thing, embeddedThings);
 
 		return thing;
 	}
@@ -51,15 +51,39 @@ export default class ApioConsumer {
 	}
 
 	/**
+	 * Execute the passed operation
+	 * @param {Operation} operation
+	 * @param {object} properties
+	 * @param {boolean} includeFile
+	 * @return {object}
+	 */
+	async performOperation(operation, properties, includeFile = false) {
+		let body;
+
+		if (properties != null) {
+			body = includeFile
+				? this.client.buildFormDataBody(properties)
+				: this.client.buildJsonBody(properties);
+		}
+
+		return this.client.request(
+			operation.method,
+			operation.target,
+			this.authorizationHeaders,
+			body
+		);
+	}
+
+	/**
 	 * Update the local cache of things
 	 * @param {Thing} thing
-	 * @param {Object} embbededThings
+	 * @param {object} embeddedThings
 	 */
-	updateCache(thing, embbededThings) {
+	updateCache(thing, embeddedThings = {}) {
 		this.thingsCache.set(thing.id, thing);
 
-		for (const key of Object.keys(embbededThings)) {
-			this.thingsCache.set(key, embbededThings[key]);
+		for (const key of Object.keys(embeddedThings)) {
+			this.thingsCache.set(key, embeddedThings[key]);
 		}
 	}
 }
