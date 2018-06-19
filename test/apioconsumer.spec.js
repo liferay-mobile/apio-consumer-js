@@ -1,8 +1,6 @@
 import ApioConsumer from '../src/consumer/apio-consumer';
-import httpClientMock from './doubles/client-mock';
 import httpClientSpy from './doubles/client-spy';
 import FormData from 'form-data';
-
 import formResponse from './fixtures/response-form';
 
 import {
@@ -32,10 +30,10 @@ describe('Apio consumer getOperation form', () => {
 	});
 
 	it('should get form json and parse it to a form model', async () => {
-		const clientMock = new httpClientMock(formResponse);
+		const getMock = jest.fn().mockReturnValue(formResponse);
 
 		const consumer = new ApioConsumer();
-		consumer.client = clientMock;
+		consumer.client.get = getMock;
 
 		const operationWithForm = getOperationWithForm();
 
