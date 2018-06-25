@@ -2,7 +2,8 @@
   "name": "apio-consumer",
   "version": "0.0.1",
   "description": "Apio Consumer for JS is part of the Apio project, which aims to promote the creation of APIs designed to evolve over time. The Apio Consumer is a client-side library to facilitate the creation of consumers of any hypermedia API.",
-  "main": "src/main.js",
+  "main": "build/browser.js",
+  "jsnext:main": "src/index.js",
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint src/**/*.js",
