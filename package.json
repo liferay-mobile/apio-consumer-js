@@ -5,7 +5,7 @@
   "main": "build/browser.js",
   "jsnext:main": "src/index.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "webpack",
     "lint": "eslint src/**/*.js",
     "format": "prettier-eslint 'src/**/*.js' --write",
     "test": "jest",
@@ -14,8 +14,11 @@
   "author": "Victor Galán Grande",
   "license": "ISC",
   "dependencies": {
+    "babel": "^6.23.0",
+    "babel-loader": "^7.1.4",
     "cross-fetch": "^2.2.1",
-    "form-data": "^2.3.2"
+    "form-data": "^2.3.2",
+    "loader": "^2.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
