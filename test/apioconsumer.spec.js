@@ -111,3 +111,29 @@ describe('Apio consumer operations', () => {
 		expect(clientSpy.url).toBe(targetUrl);
 	});
 });
+
+describe('Apio consumer embedded and fields', () => {
+	it('should set the correct parameters for embedded arguments', () => {
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
+
+		apioConsumer.fetchResource('', ['creator', 'headline']);
+
+		expect(clientSpy.parameters).toMatchObject({
+			embedded: 'creator,headline',
+		});
+	});
+
+	it('should set the correct parameters for field arguments', () => {
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
+
+		apioConsumer.fetchResource('', null, {
+			BlogPosting: ['creator, headline'],
+			Person: ['name'],
+		});
+
+		expect(clientSpy.parameters).toMatchObject({
+			'fields[BlogPosting]': 'creator, headline',
+			'fields[Person]': 'name',
+		});
+	});
+});
