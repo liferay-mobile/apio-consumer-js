@@ -2,6 +2,7 @@ import ApioConsumer from '../src/consumer/apio-consumer';
 import httpClientSpy from './doubles/client-spy';
 import FormData from 'form-data';
 import formResponse from './fixtures/response-form';
+import {getApioConsumerWithSpy} from './objectMother';
 
 import {
 	getOperation,
@@ -72,10 +73,7 @@ describe('Apio consumer operations', () => {
 	});
 
 	it('should send the correct content type header', async () => {
-		const clientSpy = new httpClientSpy();
-
-		const apioConsumer = new ApioConsumer();
-		apioConsumer.client = clientSpy;
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
 
 		const operation = getOperation();
 
@@ -90,10 +88,7 @@ describe('Apio consumer operations', () => {
 	});
 
 	it('should send the correct method', async () => {
-		const clientSpy = new httpClientSpy();
-
-		const apioConsumer = new ApioConsumer();
-		apioConsumer.client = clientSpy;
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
 
 		const method = 'DELETE';
 
@@ -105,10 +100,7 @@ describe('Apio consumer operations', () => {
 	});
 
 	it('should send the correct url', async () => {
-		const clientSpy = new httpClientSpy();
-
-		const apioConsumer = new ApioConsumer();
-		apioConsumer.client = clientSpy;
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
 
 		const targetUrl = 'http://targeturl.com';
 
