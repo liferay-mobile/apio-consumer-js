@@ -1,6 +1,6 @@
 import HttpClient from '../http/client';
 import JsonLDParser from '../parser/jsonldparser';
-import {formConverter} from '../converters';
+import {ConversionHandler, formConverter} from '../converters';
 
 /**
  * Apio consumer
@@ -14,6 +14,7 @@ export default class ApioConsumer {
 		this.client = new HttpClient();
 		this.parser = new JsonLDParser();
 		this.thingsCache = new Map();
+		this.conversionHandler = new ConversionHandler();
 		this.authorizationHeaders = authorizationHeaders;
 	}
 
@@ -39,7 +40,7 @@ export default class ApioConsumer {
 
 		this.updateCache(thing, embeddedThings);
 
-		return thing;
+		return this.conversionHandler.convert(thing);
 	}
 
 	/**
@@ -82,6 +83,15 @@ export default class ApioConsumer {
 			this.authorizationHeaders,
 			body
 		);
+	}
+
+	/**
+	 * Add a converter for a type
+	 * @param {string} type
+	 * @param {function} converter
+	 */
+	addConverter(type, converter) {
+		this.conversionHandler.addConverter(type, converter);
 	}
 
 	/**
