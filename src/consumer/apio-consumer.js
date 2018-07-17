@@ -18,12 +18,22 @@ export default class ApioConsumer {
 	}
 
 	/**
-	 * Fetch a resource using its id
+	 * Fetch a resource using its id.
+	 * It also support specifying embedded fields as an array
+	 * and included fields as an object.
 	 * @param {string} id
+	 * @param {Array<String>} embedded
+	 * @param {object} fields
 	 * @return {Thing}
 	 */
-	async fetchResource(id) {
-		const json = await this.client.get(id, this.authorizationHeaders);
+	async fetchResource(id, embedded, fields) {
+		const parameters = this.buildParameters(embedded, fields);
+
+		const json = await this.client.get(
+			id,
+			this.authorizationHeaders,
+			parameters
+		);
 
 		const {thing, embeddedThings} = this.parser.parseThing(json);
 
@@ -85,5 +95,42 @@ export default class ApioConsumer {
 		for (const key of Object.keys(embeddedThings)) {
 			this.thingsCache.set(key, embeddedThings[key]);
 		}
+	}
+
+	/**
+	 * Creates a valid parameters to be passed to the http client
+	 * @param {Array<String>} embedded
+	 * @param {object} fields
+	 * @return {object}
+	 */
+	buildParameters(embedded, fields) {
+		let parameters = {};
+		if (embedded) {
+			parameters.embedded = embedded.join(',');
+		}
+
+		if (fields) {
+			parameters = Object.assign(parameters, this.parseFields(fields));
+		}
+
+		return parameters;
+	}
+
+	/**
+	 * Transform the object to fit apio convention for fields parameter
+	 * @param {object} fields
+	 * @return {object}
+	 */
+	parseFields(fields) {
+		let parsedFields = {};
+		for (const key of Object.keys(fields)) {
+			const value = Array.isArray(fields[key])
+				? fields[key].join(',')
+				: fields[key];
+
+			parsedFields[`fields[${key}]`] = value;
+		}
+
+		return parsedFields;
 	}
 }
