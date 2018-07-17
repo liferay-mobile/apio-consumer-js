@@ -1,7 +1,10 @@
 import ApioConsumer from '../src/consumer/apio-consumer';
 import httpClientSpy from './doubles/client-spy';
+import {ConversionHandler} from '../src/converters';
+import Thing from '../src/model/thing';
 import FormData from 'form-data';
 import formResponse from './fixtures/response-form';
+import responseWithoutEmbbeded from './fixtures/response-without-embbeded';
 import {getApioConsumerWithSpy} from './objectMother';
 
 import {
@@ -135,5 +138,35 @@ describe('Apio consumer embedded and fields', () => {
 			'fields[BlogPosting]': 'creator, headline',
 			'fields[Person]': 'name',
 		});
+	});
+});
+
+describe('Apio consumer converters', () => {
+	it('should convert a thing when there is a converter available', async () => {
+		const getMock = jest.fn().mockReturnValue(responseWithoutEmbbeded);
+		const consumer = new ApioConsumer();
+		consumer.client.get = getMock;
+
+		const converter = thing => {
+			return {name: thing.attributes.givenName};
+		};
+
+		consumer.addConverter('Person', converter);
+
+		const converted = await consumer.fetchResource('');
+
+		expect(converted.name).toBe('Loy');
+	});
+
+	it('should leave the thing unconverted when there is not any converter', async () => {
+		const getMock = jest.fn().mockReturnValue(responseWithoutEmbbeded);
+		const consumer = new ApioConsumer();
+		ConversionHandler.CONVERTERS = {};
+
+		consumer.client.get = getMock;
+
+		const thing = await consumer.fetchResource('');
+
+		expect(thing instanceof Thing).toBeTruthy();
 	});
 });
