@@ -1,7 +1,11 @@
 import ApioConsumer from '../src/consumer/apio-consumer';
 import httpClientSpy from './doubles/client-spy';
+import {ConversionHandler} from '../src/converters';
+import Thing from '../src/model/thing';
 import FormData from 'form-data';
 import formResponse from './fixtures/response-form';
+import responseWithoutEmbbeded from './fixtures/response-without-embbeded';
+import {getApioConsumerWithSpy} from './objectMother';
 
 import {
 	getOperation,
@@ -72,10 +76,7 @@ describe('Apio consumer operations', () => {
 	});
 
 	it('should send the correct content type header', async () => {
-		const clientSpy = new httpClientSpy();
-
-		const apioConsumer = new ApioConsumer();
-		apioConsumer.client = clientSpy;
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
 
 		const operation = getOperation();
 
@@ -90,10 +91,7 @@ describe('Apio consumer operations', () => {
 	});
 
 	it('should send the correct method', async () => {
-		const clientSpy = new httpClientSpy();
-
-		const apioConsumer = new ApioConsumer();
-		apioConsumer.client = clientSpy;
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
 
 		const method = 'DELETE';
 
@@ -105,10 +103,7 @@ describe('Apio consumer operations', () => {
 	});
 
 	it('should send the correct url', async () => {
-		const clientSpy = new httpClientSpy();
-
-		const apioConsumer = new ApioConsumer();
-		apioConsumer.client = clientSpy;
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
 
 		const targetUrl = 'http://targeturl.com';
 
@@ -117,5 +112,61 @@ describe('Apio consumer operations', () => {
 		await apioConsumer.performOperation(operation, {});
 
 		expect(clientSpy.url).toBe(targetUrl);
+	});
+});
+
+describe('Apio consumer embedded and fields', () => {
+	it('should set the correct parameters for embedded arguments', () => {
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
+
+		apioConsumer.fetchResource('', ['creator', 'headline']);
+
+		expect(clientSpy.parameters).toMatchObject({
+			embedded: 'creator,headline',
+		});
+	});
+
+	it('should set the correct parameters for field arguments', () => {
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
+
+		apioConsumer.fetchResource('', null, {
+			BlogPosting: ['creator, headline'],
+			Person: ['name'],
+		});
+
+		expect(clientSpy.parameters).toMatchObject({
+			'fields[BlogPosting]': 'creator, headline',
+			'fields[Person]': 'name',
+		});
+	});
+});
+
+describe('Apio consumer converters', () => {
+	it('should convert a thing when there is a converter available', async () => {
+		const getMock = jest.fn().mockReturnValue(responseWithoutEmbbeded);
+		const consumer = new ApioConsumer();
+		consumer.client.get = getMock;
+
+		const converter = thing => {
+			return {name: thing.attributes.givenName};
+		};
+
+		consumer.addConverter('Person', converter);
+
+		const converted = await consumer.fetchResource('');
+
+		expect(converted.name).toBe('Loy');
+	});
+
+	it('should leave the thing unconverted when there is not any converter', async () => {
+		const getMock = jest.fn().mockReturnValue(responseWithoutEmbbeded);
+		const consumer = new ApioConsumer();
+		ConversionHandler.CONVERTERS = {};
+
+		consumer.client.get = getMock;
+
+		const thing = await consumer.fetchResource('');
+
+		expect(thing instanceof Thing).toBeTruthy();
 	});
 });

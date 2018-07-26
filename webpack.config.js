@@ -1,5 +1,3 @@
-const webpack = require('webpack');
-
 const moduleConfig = {
 	rules: [
 		{
@@ -8,7 +6,7 @@ const moduleConfig = {
 			use: {
 				loader: 'babel-loader',
 				options: {
-					presets: ['babel-preset-env'],
+					presets: [['env', {modules: false}]],
 					plugins: ['transform-runtime'],
 				},
 			},
@@ -17,14 +15,14 @@ const moduleConfig = {
 };
 
 const browserConfig = {
-	target: 'web',
 	entry: './src/index.js',
 	module: moduleConfig,
 	output: {
 		filename: './browser.js',
 		libraryTarget: 'umd',
+		library: 'ApioConsumer',
+		libraryExport: 'default',
 	},
-	plugins: [new webpack.optimize.ModuleConcatenationPlugin()],
 };
 
 const nodeConfig = {
@@ -33,7 +31,8 @@ const nodeConfig = {
 	module: moduleConfig,
 	output: {
 		filename: './node.js',
-		libraryTarget: 'commonjs',
+		libraryTarget: 'commonjs2',
+		libraryExport: 'default',
 	},
 };
 
