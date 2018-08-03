@@ -1,3 +1,5 @@
+import {collectionConverter} from './collection-converter';
+
 /**
  * Apio consumer
  */
@@ -31,5 +33,6 @@ class ConversionHandler {
 }
 
 ConversionHandler.CONVERTERS = {};
+ConversionHandler.CONVERTERS['Collection'] = collectionConverter;
 
 export {ConversionHandler};

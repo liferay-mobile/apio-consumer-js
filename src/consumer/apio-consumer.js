@@ -1,6 +1,10 @@
 import HttpClient from '../http/client';
 import JsonLDParser from '../parser/jsonldparser';
-import {ConversionHandler, formConverter} from '../converters';
+import {
+	ConversionHandler,
+	formConverter,
+	collectionConverter,
+} from '../converters';
 
 /**
  * Apio consumer
