@@ -17,6 +17,15 @@ export default class Thing {
 	}
 
 	/**
+	 * Check wether the thing is a concrete type or not.
+	 * @param {string} type
+	 * @return {boolean}
+	 */
+	hasType(type) {
+		return this.types.indexOf(type) !== -1;
+	}
+
+	/**
 	 * Types can be an array or a string, this function transform
 	 * it to return an array always.
 	 * @param {Array<String>|String} types
