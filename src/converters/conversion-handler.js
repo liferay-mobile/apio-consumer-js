@@ -13,7 +13,7 @@ class ConversionHandler {
 		for (const type of thing.types) {
 			const converter = ConversionHandler.CONVERTERS[type];
 			if (converter) {
-				return converter(thing);
+				return converter(thing, this);
 			}
 		}
 
