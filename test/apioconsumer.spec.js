@@ -1,10 +1,11 @@
 import ApioConsumer from '../src/consumer/apio-consumer';
 import httpClientSpy from './doubles/client-spy';
-import {ConversionHandler} from '../src/converters';
+import {ConversionHandler, collectionConverter} from '../src/converters';
 import Thing from '../src/model/thing';
 import FormData from 'form-data';
 import formResponse from './fixtures/response-form';
 import responseWithoutEmbbeded from './fixtures/response-without-embbeded';
+import responseWithEmbbeded from './fixtures/response-with-embbeded';
 import {getApioConsumerWithSpy} from './objectMother';
 
 import {
@@ -12,6 +13,7 @@ import {
 	getOperationWithForm,
 	getOperationWithMethod,
 } from './objectMother';
+import Collection from '../src/model/collection';
 
 describe('Apio consumer getOperation form', () => {
 	it(`should throw a exception if the operation doesn't have a form`, async () => {
@@ -168,5 +170,41 @@ describe('Apio consumer converters', () => {
 		const thing = await consumer.fetchResource('');
 
 		expect(thing instanceof Thing).toBeTruthy();
+	});
+
+	it('should convert collections', async () => {
+		const getMock = jest.fn().mockReturnValue(responseWithEmbbeded);
+		const consumer = new ApioConsumer();
+		ConversionHandler.CONVERTERS = {};
+
+		consumer.client.get = getMock;
+
+		const blogPostingConverter = thing => {
+			return {headline: thing.attributes.headline};
+		};
+
+		consumer.addConverter('Collection', collectionConverter);
+		consumer.addConverter('BlogPosting', blogPostingConverter);
+
+		const collection = await consumer.fetchResource('');
+
+		expect(collection instanceof Collection).toBeTruthy();
+
+		expect(collection.items[0].headline).toBe('Death Be Not Proud');
+	});
+
+	it('should convert collections and items inside the collection', async () => {
+		const getMock = jest.fn().mockReturnValue(responseWithEmbbeded);
+		const consumer = new ApioConsumer();
+		ConversionHandler.CONVERTERS = {};
+
+		consumer.client.get = getMock;
+
+		consumer.addConverter('Collection', collectionConverter);
+		consumer.addConverter('');
+
+		const thing = await consumer.fetchResource('');
+
+		expect(thing instanceof Collection).toBeTruthy();
 	});
 });
