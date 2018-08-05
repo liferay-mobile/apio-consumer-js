@@ -6,6 +6,7 @@ import {isObject, isObjectArray, filterProperties} from '../utils';
 
 /**
  * Parser for extracting all the things from a json ld document
+ * @review
  */
 export default class JsonLDParser {
 	/**
@@ -13,6 +14,7 @@ export default class JsonLDParser {
 	 * Returns the top level thing, and all the embedded things
 	 * @param {object} json
 	 * @return {object}
+	 * @review
 	 */
 	parseThing(json) {
 		const id = json['@id'];
@@ -31,6 +33,7 @@ export default class JsonLDParser {
 	 * @param {object} json
 	 * @param {object} context
 	 * @return {object}
+	 * @review
 	 */
 	parseAttributes(json, context) {
 		const filteredJson = filterProperties(json, '@id', '@context', '@type');
@@ -48,6 +51,7 @@ export default class JsonLDParser {
 	 * @param {object} foldedAttributes
 	 * @param {Array} attribute
 	 * @return {object}
+	 * @review
 	 */
 	flatten(context, foldedAttributes, attribute) {
 		let {attributes, things} = foldedAttributes;
@@ -77,6 +81,7 @@ export default class JsonLDParser {
 	 * @param {object} context
 	 * @param {object} attributes
 	 * @param {object} things
+	 * @review
 	 */
 	parseObject(key, value, context, attributes, things) {
 		if (this.isEmbbededThing(value)) {
@@ -102,6 +107,7 @@ export default class JsonLDParser {
 	 * @param {object} context
 	 * @param {object} attributes
 	 * @param {object} things
+	 * @review
 	 */
 	parseObjectArray(key, value, context, attributes, things) {
 		if (this.isEmbbededThingArray(value)) {
@@ -135,6 +141,7 @@ export default class JsonLDParser {
 	 * Parses operations from a json array
 	 * @param {object} json
 	 * @return {Array<Operation>}
+	 * @review
 	 */
 	parseOperations(json) {
 		const operationsJson = json['operation'] || [];
@@ -159,6 +166,7 @@ export default class JsonLDParser {
 	 * Check if the object passed is a embbeded thing
 	 * @param {object} value
 	 * @return {boolean}
+	 * @review
 	 */
 	isEmbbededThing(value) {
 		return value['@id'] != null;
@@ -168,6 +176,7 @@ export default class JsonLDParser {
 	 * Check if the array of object passed if an array of things
 	 * @param {Array<Object>} value
 	 * @return {boolean}
+	 * @review
 	 */
 	isEmbbededThingArray(value) {
 		return value[0]['@id'] != null;
@@ -178,6 +187,7 @@ export default class JsonLDParser {
 	 * @param {String} name
 	 * @param {object} context
 	 * @return {boolean}
+	 * @review
 	 */
 	isId(name, context) {
 		if (context) {

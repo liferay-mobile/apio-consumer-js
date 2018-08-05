@@ -4,11 +4,13 @@ import {ConversionHandler, formConverter} from '../converters';
 
 /**
  * Apio consumer
+ * @review
  */
 export default class ApioConsumer {
 	/**
 	 * Creates a new ApioConsumer
 	 * @param {object} authorizationHeaders
+	 * @review
 	 */
 	constructor(authorizationHeaders) {
 		this.client = new HttpClient();
@@ -26,6 +28,7 @@ export default class ApioConsumer {
 	 * @param {Array<String>} embedded
 	 * @param {object} fields
 	 * @return {Thing}
+	 * @review
 	 */
 	async fetchResource(id, embedded, fields) {
 		const parameters = this.buildParameters(embedded, fields);
@@ -47,6 +50,7 @@ export default class ApioConsumer {
 	 * Get the form associated to the operation
 	 * @param {Operation} operation
 	 * @return {Form}
+	 * @review
 	 */
 	async getOperationForm(operation) {
 		if (operation.expects == null) {
@@ -67,6 +71,7 @@ export default class ApioConsumer {
 	 * @param {object} properties
 	 * @param {boolean} includeFile
 	 * @return {object}
+	 * @review
 	 */
 	async performOperation(operation, properties, includeFile = false) {
 		let body;
@@ -89,6 +94,7 @@ export default class ApioConsumer {
 	 * Add a converter for a type
 	 * @param {string} type
 	 * @param {function} converter
+	 * @review
 	 */
 	addConverter(type, converter) {
 		this.conversionHandler.addConverter(type, converter);
@@ -98,6 +104,7 @@ export default class ApioConsumer {
 	 * Update the local cache of things
 	 * @param {Thing} thing
 	 * @param {object} embeddedThings
+	 * @review
 	 */
 	updateCache(thing, embeddedThings = {}) {
 		this.thingsCache.set(thing.id, thing);
@@ -112,6 +119,7 @@ export default class ApioConsumer {
 	 * @param {Array<String>} embedded
 	 * @param {object} fields
 	 * @return {object}
+	 * @review
 	 */
 	buildParameters(embedded, fields) {
 		let parameters = {};
@@ -130,6 +138,7 @@ export default class ApioConsumer {
 	 * Transform the object to fit apio convention for fields parameter
 	 * @param {object} fields
 	 * @return {object}
+	 * @review
 	 */
 	parseFields(fields) {
 		let parsedFields = {};
