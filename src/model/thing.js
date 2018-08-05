@@ -19,7 +19,7 @@ export default class Thing {
 	}
 
 	/**
-	 * Check wether the thing is a concrete type or not.
+	 * Check whether the thing is a concrete type or not.
 	 * @param {string} type
 	 * @return {boolean}
 	 * @review

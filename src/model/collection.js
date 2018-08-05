@@ -27,7 +27,7 @@ export default class Collection {
 	}
 
 	/**
-	 * Checks wether this collection has another page with more items
+	 * Checks whether this collection has another page with more items
 	 * @return {boolean}
 	 * @review
 	 */
