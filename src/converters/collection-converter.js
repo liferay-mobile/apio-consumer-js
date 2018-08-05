@@ -10,13 +10,10 @@ const collectionConverter = (thing, conversionHandler) => {
 		member,
 	} = thing.attributes;
 
-	let items = [];
-
-	if (member.length !== 0) {
-		items = member.map(item => conversionHandler.convert(item.thing));
-	} else {
-		items = member;
-	}
+	let items =
+		member.length === 0
+			? []
+			: member.map(item => conversionHandler.convert(item.thing));
 
 	return new Collection(
 		id,
