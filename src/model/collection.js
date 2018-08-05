@@ -1,5 +1,6 @@
 /**
  * Model that represent an APIO collection
+ * @review
  */
 export default class Collection {
 	/**
@@ -12,6 +13,7 @@ export default class Collection {
 	 * @param {Array<Thing>} items
 	 * @param {number} totalItems
 	 * @param {number} numberOfItems
+	 * @review
 	 */
 	constructor(id, type, first, last, next, items, totalItems, numberOfItems) {
 		this.id = id;
@@ -27,6 +29,7 @@ export default class Collection {
 	/**
 	 * Checks wether this collection has another page with more items
 	 * @return {boolean}
+	 * @review
 	 */
 	hasNext() {
 		return this.next != null;

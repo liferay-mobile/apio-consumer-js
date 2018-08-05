@@ -1,5 +1,6 @@
 /**
  * Model that represent an operation on a resource
+ * @review
  */
 export default class Operation {
 	/**
@@ -10,6 +11,7 @@ export default class Operation {
 	 * @param {String} expects
 	 * @param {Array<String>} type
 	 * @param {Form} form
+	 * @review
 	 */
 	constructor(id, target, method, expects, type, form = null) {
 		this.id = id;

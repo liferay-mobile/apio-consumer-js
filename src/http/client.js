@@ -3,6 +3,7 @@ import FormData from 'form-data';
 
 /**
  * HttpClient
+ * @review
  */
 export default class HttpClient {
 	/**
@@ -11,6 +12,7 @@ export default class HttpClient {
 	 * @param {object} headers
 	 * @param {object} parameters
 	 * @return {object}
+	 * @review
 	 */
 	async get(url, headers, parameters) {
 		if (parameters) {
@@ -36,6 +38,7 @@ export default class HttpClient {
 	 * @param {object} headers
 	 * @param {object} body
 	 * @return {object}
+	 * @review
 	 */
 	async request(method, url, headers = {}, body) {
 		if (typeof body === 'string') {
@@ -61,6 +64,7 @@ export default class HttpClient {
 	 * @param {object} headers
 	 * @param {object} body
 	 * @return {Response}
+	 * @review
 	 */
 	doFetch(url, method, headers, body) {
 		return fetch(url, {
@@ -74,6 +78,7 @@ export default class HttpClient {
 	 * Get the query string from a object
 	 * @param {object} parameters
 	 * @return {String}
+	 * @review
 	 */
 	getQueryString(parameters) {
 		const queries = Object.keys(parameters).map(
@@ -87,6 +92,7 @@ export default class HttpClient {
 	 * Build a json body with the object provided
 	 * @param {object} object
 	 * @return {object}
+	 * @review
 	 */
 	buildJsonBody(object) {
 		return JSON.stringify(object);
@@ -96,6 +102,7 @@ export default class HttpClient {
 	 * Buid a form data body with the object provided
 	 * @param {object} object
 	 * @return {object}
+	 * @review
 	 */
 	buildFormDataBody(object) {
 		return Object.keys(object).reduce((formData, key) => {

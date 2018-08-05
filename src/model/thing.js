@@ -1,5 +1,6 @@
 /**
  * Model that represent an entity returned by APIO
+ * @review
  */
 export default class Thing {
 	/**
@@ -8,6 +9,7 @@ export default class Thing {
 	 * @param {(Array<String>|String)} types
 	 * @param {object} attributes
 	 * @param {object} operations
+	 * @review
 	 */
 	constructor(id, types, attributes, operations) {
 		this.id = id;
@@ -20,6 +22,7 @@ export default class Thing {
 	 * Check wether the thing is a concrete type or not.
 	 * @param {string} type
 	 * @return {boolean}
+	 * @review
 	 */
 	hasType(type) {
 		return this.types.indexOf(type) !== -1;
@@ -30,6 +33,7 @@ export default class Thing {
 	 * it to return an array always.
 	 * @param {Array<String>|String} types
 	 * @return {Array<String>}
+	 * @review
 	 */
 	normalizeTypes(types) {
 		return [].concat(types);

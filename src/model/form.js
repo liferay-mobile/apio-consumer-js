@@ -1,5 +1,6 @@
 /**
  * Model that represent an APIO form
+ * @review
  */
 export default class Form {
 	/**
@@ -8,6 +9,7 @@ export default class Form {
 	 * @param {String} title
 	 * @param {String} description
 	 * @param {Array<Object>} properties
+	 * @review
 	 */
 	constructor(id, title, description, properties) {
 		this.id = id;

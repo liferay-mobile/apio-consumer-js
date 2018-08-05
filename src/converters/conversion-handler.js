@@ -2,6 +2,7 @@ import {collectionConverter} from './collection-converter';
 
 /**
  * Apio consumer
+ * @review
  */
 class ConversionHandler {
 	/**
@@ -10,6 +11,7 @@ class ConversionHandler {
 	 * for the types in order and apply the first found.
 	 * @param {Thing} thing
 	 * @return {object}
+	 * @review
 	 */
 	convert(thing) {
 		for (const type of thing.types) {
@@ -26,6 +28,7 @@ class ConversionHandler {
 	 * Add a converter for a type
 	 * @param {string} type
 	 * @param {function} converter
+	 * @review
 	 */
 	addConverter(type, converter) {
 		ConversionHandler.CONVERTERS[type] = converter;
