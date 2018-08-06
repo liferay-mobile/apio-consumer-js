@@ -9,15 +9,15 @@ import {ConversionHandler, formConverter} from '../converters';
 export default class ApioConsumer {
 	/**
 	 * Creates a new ApioConsumer
-	 * @param {object} authorizationHeaders
+	 * @param {object} config
 	 * @review
 	 */
-	constructor(authorizationHeaders) {
+	constructor(config = {}) {
 		this.client = new HttpClient();
 		this.parser = new JsonLDParser();
 		this.thingsCache = new Map();
 		this.conversionHandler = new ConversionHandler();
-		this.authorizationHeaders = authorizationHeaders;
+		this.config = config;
 	}
 
 	/**
@@ -30,13 +30,12 @@ export default class ApioConsumer {
 	 * @review
 	 */
 	async fetchResource(id, requestConfig = {}) {
+		const config = Object.assign(requestConfig, this.config);
+		const {embedded, fields, headers} = config;
+
 		const parameters = this.buildParameters(embedded, fields);
 
-		const json = await this.client.get(
-			id,
-			this.authorizationHeaders,
-			parameters
-		);
+		const json = await this.client.get(id, headers, parameters);
 
 		const {thing, embeddedThings} = this.parser.parseThing(json);
 
@@ -84,7 +83,7 @@ export default class ApioConsumer {
 		return this.client.request(
 			operation.method,
 			operation.target,
-			this.authorizationHeaders,
+			this.config.headers,
 			body
 		);
 	}
