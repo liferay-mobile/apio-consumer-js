@@ -121,7 +121,11 @@ describe('Apio consumer embedded and fields', () => {
 	it('should set the correct parameters for embedded arguments', () => {
 		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
 
-		apioConsumer.fetchResource('', ['creator', 'headline']);
+		const config = {
+			embedded: ['creator', 'headline'],
+		};
+
+		apioConsumer.fetchResource('', config);
 
 		expect(clientSpy.parameters).toMatchObject({
 			embedded: 'creator,headline',
@@ -131,14 +135,45 @@ describe('Apio consumer embedded and fields', () => {
 	it('should set the correct parameters for field arguments', () => {
 		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
 
-		apioConsumer.fetchResource('', null, {
-			BlogPosting: ['creator, headline'],
-			Person: ['name'],
-		});
+		const config = {
+			fields: {
+				BlogPosting: ['creator, headline'],
+				Person: ['name'],
+			},
+		};
+
+		apioConsumer.fetchResource('', config);
 
 		expect(clientSpy.parameters).toMatchObject({
 			'fields[BlogPosting]': 'creator, headline',
 			'fields[Person]': 'name',
+		});
+	});
+
+	it('should set the correct configuration when specified on construction instead of per request', () => {
+		const {apioConsumer, clientSpy} = getApioConsumerWithSpy();
+
+		const config = {
+			headers: {Authorization: 'Bearer 1234'},
+			embedded: ['creator', 'headline'],
+			fields: {
+				BlogPosting: ['creator, headline'],
+				Person: ['name'],
+			},
+		};
+
+		apioConsumer.config = config;
+
+		apioConsumer.fetchResource('');
+
+		expect(clientSpy.parameters).toMatchObject({
+			embedded: 'creator,headline',
+			'fields[BlogPosting]': 'creator, headline',
+			'fields[Person]': 'name',
+		});
+
+		expect(clientSpy.headers).toMatchObject({
+			Authorization: 'Bearer 1234',
 		});
 	});
 });
