@@ -25,12 +25,11 @@ export default class ApioConsumer {
 	 * It also support specifying embedded fields as an array
 	 * and included fields as an object.
 	 * @param {string} id
-	 * @param {Array<String>} embedded
-	 * @param {object} fields
+	 * @param {object} requestConfig
 	 * @return {Thing}
 	 * @review
 	 */
-	async fetchResource(id, embedded, fields) {
+	async fetchResource(id, requestConfig = {}) {
 		const parameters = this.buildParameters(embedded, fields);
 
 		const json = await this.client.get(
