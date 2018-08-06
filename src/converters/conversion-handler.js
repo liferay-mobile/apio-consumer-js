@@ -1,10 +1,19 @@
 import {collectionConverter} from './collection-converter';
+import ApioConsumer from '../consumer/apio-consumer';
 
 /**
  * Apio consumer
  * @review
  */
 class ConversionHandler {
+	/**
+	 * Creates a new conversion handler
+	 * @param {ApioConsumer} consumer
+	 */
+	constructor(consumer) {
+		this.consumer = consumer;
+	}
+
 	/**
 	 * Convert the thing with the converte associated to its type, if any.
 	 * If the thing has one or more types it will look for converters
@@ -17,7 +26,7 @@ class ConversionHandler {
 		for (const type of thing.types) {
 			const converter = ConversionHandler.CONVERTERS[type];
 			if (converter) {
-				return converter(thing, this);
+				return converter(thing, this.consumer);
 			}
 		}
 

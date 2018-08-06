@@ -16,7 +16,7 @@ export default class ApioConsumer {
 		this.client = new HttpClient();
 		this.parser = new JsonLDParser();
 		this.thingsCache = new Map();
-		this.conversionHandler = new ConversionHandler();
+		this.conversionHandler = new ConversionHandler(this);
 		this.config = config;
 	}
 

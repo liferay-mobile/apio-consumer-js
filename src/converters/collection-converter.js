@@ -1,6 +1,6 @@
 import Collection from '../model/collection';
 
-const collectionConverter = (thing, conversionHandler) => {
+const collectionConverter = (thing, {conversionHandler}) => {
 	const id = thing.id;
 	const type = thing.type;
 	const {
