@@ -1,5 +1,6 @@
 import {collectionConverter} from './collection-converter';
 import ApioConsumer from '../consumer/apio-consumer';
+import {entryPointConverter} from './entrypoint-converter';
 
 /**
  * Apio consumer
@@ -46,5 +47,6 @@ class ConversionHandler {
 
 ConversionHandler.CONVERTERS = {};
 ConversionHandler.CONVERTERS['Collection'] = collectionConverter;
+ConversionHandler.CONVERTERS['EntryPoint'] = entryPointConverter;
 
 export {ConversionHandler};
