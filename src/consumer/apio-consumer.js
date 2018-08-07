@@ -1,4 +1,5 @@
 import HttpClient from '../http/client';
+import Navigator from '../navigator/navigator';
 import JsonLDParser from '../parser/jsonldparser';
 import {ConversionHandler, formConverter} from '../converters';
 
@@ -110,6 +111,10 @@ export default class ApioConsumer {
 		for (const key of Object.keys(embeddedThings)) {
 			this.thingsCache.set(key, embeddedThings[key]);
 		}
+	}
+
+	navigate() {
+		return new Navigator(this);
 	}
 
 	/**
