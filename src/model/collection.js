@@ -6,7 +6,7 @@ export default class Collection {
 	/**
 	 * Creates a new Collection
 	 * @param {String} id
-	 * @param {Array<Object>} type
+	 * @param {Array<Object>} types
 	 * @param {String} first
 	 * @param {String} last
 	 * @param {String} next
@@ -15,9 +15,18 @@ export default class Collection {
 	 * @param {number} numberOfItems
 	 * @review
 	 */
-	constructor(id, type, first, last, next, items, totalItems, numberOfItems) {
+	constructor(
+		id,
+		types,
+		first,
+		last,
+		next,
+		items,
+		totalItems,
+		numberOfItems
+	) {
 		this.id = id;
-		this.type = type;
+		this.types = types;
 		this.first = first;
 		this.last = last;
 		this.next = next;

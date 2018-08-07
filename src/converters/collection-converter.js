@@ -2,7 +2,7 @@ import Collection from '../model/collection';
 
 const collectionConverter = (thing, {conversionHandler}) => {
 	const id = thing.id;
-	const type = thing.type;
+	const types = thing.types;
 	const {
 		view: {first, last, next},
 		totalItems,
@@ -17,7 +17,7 @@ const collectionConverter = (thing, {conversionHandler}) => {
 
 	return new Collection(
 		id,
-		type,
+		types,
 		first,
 		last,
 		next,
