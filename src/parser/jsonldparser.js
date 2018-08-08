@@ -111,7 +111,7 @@ export default class JsonLDParser {
 	 */
 	parseObjectArray(key, value, context, attributes, things) {
 		if (this.isEmbbededThingArray(value)) {
-			const list = value.map(x => this.parseThing(x, things));
+			const list = value.map(x => this.parseThing(x));
 			let relations = [];
 			for (const {thing, embeddedThings} of list) {
 				const relation = new Relation(thing.id, thing);

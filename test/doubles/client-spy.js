@@ -1,7 +1,7 @@
 import HttpClient from '../../src/http/client';
 import {Response} from 'cross-fetch';
 
-export default class httpClientMock extends HttpClient {
+export default class httpClientSpy extends HttpClient {
 	async get(url, headers, parameters) {
 		this.url = url;
 		this.headers = headers;

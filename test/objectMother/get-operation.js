@@ -1,5 +1,4 @@
 import Operation from '../../src/model/operation';
-import {isNullOrUndefined} from 'util';
 
 const getOperation = (
 	target = 'http://validurl.com',

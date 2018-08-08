@@ -1,4 +1,5 @@
 import HttpClient from '../http/client';
+import Navigator from '../navigator/navigator';
 import JsonLDParser from '../parser/jsonldparser';
 import {ConversionHandler, formConverter} from '../converters';
 
@@ -9,15 +10,15 @@ import {ConversionHandler, formConverter} from '../converters';
 export default class ApioConsumer {
 	/**
 	 * Creates a new ApioConsumer
-	 * @param {object} authorizationHeaders
+	 * @param {object} config
 	 * @review
 	 */
-	constructor(authorizationHeaders) {
+	constructor(config = {}) {
 		this.client = new HttpClient();
 		this.parser = new JsonLDParser();
 		this.thingsCache = new Map();
-		this.conversionHandler = new ConversionHandler();
-		this.authorizationHeaders = authorizationHeaders;
+		this.conversionHandler = new ConversionHandler(this);
+		this.config = config;
 	}
 
 	/**
@@ -25,19 +26,17 @@ export default class ApioConsumer {
 	 * It also support specifying embedded fields as an array
 	 * and included fields as an object.
 	 * @param {string} id
-	 * @param {Array<String>} embedded
-	 * @param {object} fields
+	 * @param {object} requestConfig
 	 * @return {Thing}
 	 * @review
 	 */
-	async fetchResource(id, embedded, fields) {
+	async fetchResource(id, requestConfig = {}) {
+		const config = Object.assign(requestConfig, this.config);
+		const {embedded, fields, headers} = config;
+
 		const parameters = this.buildParameters(embedded, fields);
 
-		const json = await this.client.get(
-			id,
-			this.authorizationHeaders,
-			parameters
-		);
+		const json = await this.client.get(id, headers, parameters);
 
 		const {thing, embeddedThings} = this.parser.parseThing(json);
 
@@ -85,7 +84,7 @@ export default class ApioConsumer {
 		return this.client.request(
 			operation.method,
 			operation.target,
-			this.authorizationHeaders,
+			this.config.headers,
 			body
 		);
 	}
@@ -112,6 +111,10 @@ export default class ApioConsumer {
 		for (const key of Object.keys(embeddedThings)) {
 			this.thingsCache.set(key, embeddedThings[key]);
 		}
+	}
+
+	navigate() {
+		return new Navigator(this);
 	}
 
 	/**
