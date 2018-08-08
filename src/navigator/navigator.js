@@ -24,9 +24,7 @@ export default class Navigator {
 	}
 
 	getEntryPointUrl() {
-		const {baseUrl} = this.consumer.config;
-
-		return baseUrl + '/o/api';
+		return this.consumer.config + '/o/api';
 	}
 
 	collectionManaging(type) {
