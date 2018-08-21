@@ -2,17 +2,33 @@
   "name": "apio-consumer",
   "version": "0.0.1",
   "description": "Apio Consumer for JS is part of the Apio project, which aims to promote the creation of APIs designed to evolve over time. The Apio Consumer is a client-side library to facilitate the creation of consumers of any hypermedia API.",
-  "main": "build/browser.js",
+  "main": "dist/node.js",
+  "browser": "dist/browser.js",
   "jsnext:main": "src/index.js",
+  "module": "src/index.js",
   "scripts": {
     "build": "webpack",
+    "checkFormat": "npm run prettier -- --list-different",
     "lint": "eslint src/**/*.js",
-    "format": "prettier-eslint 'src/**/*.js' --write",
+    "format": "npm run prettier -- --write",
+    "prettier": "prettier-eslint 'src/**/*.js'",
     "test": "jest",
     "test:watch": "jest --watch"
   },
-  "author": "Victor Galán Grande",
-  "license": "ISC",
+  "author": {
+    "name": "Victor Galán Grande",
+    "email": "victor.galan@liferay.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liferay-mobile/apio-consumer-js"
+  },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "keywords": [
+    "hypermedia",
+    "consumer",
+    "REST"
+  ],
   "dependencies": {
     "babel": "^6.23.0",
     "babel-loader": "^7.1.4",

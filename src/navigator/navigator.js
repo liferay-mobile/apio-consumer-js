@@ -1,5 +1,3 @@
-import ApioConsumer from '../consumer/apio-consumer';
-
 /**
  * Class for navigating accross the API
  * @review
@@ -32,12 +30,18 @@ export default class Navigator {
 
 	/**
 	 * Get the url of the entry point
+	 * @return {string}
 	 * @review
 	 */
 	getEntryPointUrl() {
 		return this.consumer.config.baseUrl + '/o/api';
 	}
 
+	/**
+	 * Get the collection matching the managing type
+	 * @param {string} type
+	 * @return {Navigator} the same instance to allow adding more navigation steps.
+	 */
 	collectionManaging(type) {
 		const navigationStep = entryPoint => {
 			const collectionId = entryPoint.getCollectionManaging(type);
@@ -52,6 +56,7 @@ export default class Navigator {
 
 	/**
 	 * Get the final result after executing all steps
+	 * @return {Thing}
 	 * @review
 	 */
 	get() {
