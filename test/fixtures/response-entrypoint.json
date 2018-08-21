@@ -1,0 +1,23 @@
+{
+	"@id" : "https://apiosample.wedeploy.io",
+	"collection" : [ {
+	  "@id" : "https://apiosample.wedeploy.io/p/blog-postings",
+	  "manages" : {
+		"property" : "rdf:type",
+		"object" : "schema:BlogPosting"
+	  },
+	  "@type" : [ "Collection" ]
+	}, {
+	  "@id" : "https://apiosample.wedeploy.io/p/people",
+	  "manages" : {
+		"property" : "rdf:type",
+		"object" : "schema:Person"
+	  },
+	  "@type" : [ "Collection" ]
+	} ],
+	"@type" : "EntryPoint",
+	"@context" : [ {
+	  "@vocab" : "http://schema.org/"
+	}, "https://www.w3.org/ns/hydra/core#" ]
+  }
+  

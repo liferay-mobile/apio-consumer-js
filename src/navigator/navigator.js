@@ -35,7 +35,7 @@ export default class Navigator {
 	 * @review
 	 */
 	getEntryPointUrl() {
-		return this.consumer.config + '/o/api';
+		return this.consumer.config.baseUrl + '/o/api';
 	}
 
 	collectionManaging(type) {
