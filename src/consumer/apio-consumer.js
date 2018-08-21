@@ -113,6 +113,11 @@ export default class ApioConsumer {
 		}
 	}
 
+	/**
+	 * Start navigating over the APIs
+	 * @return {Navigator}
+	 * @review
+	 */
 	navigate() {
 		return new Navigator(this);
 	}

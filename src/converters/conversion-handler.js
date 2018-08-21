@@ -1,5 +1,4 @@
 import {collectionConverter} from './collection-converter';
-import ApioConsumer from '../consumer/apio-consumer';
 import {entryPointConverter} from './entrypoint-converter';
 
 /**
