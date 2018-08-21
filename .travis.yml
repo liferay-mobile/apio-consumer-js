@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "lts/*"
+  - "9"
+  - "10"
+
+cache:
+  directories:
+    - "node_modules"
+
+script:
+  - npm run lint
+  - npm run checkFormat
+  - npm run test
+
