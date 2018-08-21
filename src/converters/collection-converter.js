@@ -3,12 +3,9 @@ import Collection from '../model/collection';
 const collectionConverter = (thing, {conversionHandler}) => {
 	const id = thing.id;
 	const types = thing.types;
-	const {
-		view: {first, last, next},
-		totalItems,
-		numberOfItems,
-		member,
-	} = thing.attributes;
+	const {view, totalItems, numberOfItems, member} = thing.attributes;
+
+	const {first, last, next} = view.thing.attributes;
 
 	let items =
 		member.length === 0
